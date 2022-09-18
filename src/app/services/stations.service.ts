@@ -7,7 +7,7 @@ import { catchError, map, retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class StationsService {
-  api = 'http://192.168.1.137:5000';
+  api = 'http://localhost:5000';
 
   constructor(private http: HttpClient) { }
 
