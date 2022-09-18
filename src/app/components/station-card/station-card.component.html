@@ -1,0 +1,22 @@
+<div class="card-container">
+  <div class="card">
+    <div class="city">
+      <div class="container">
+        <span class="name">{{station.location.city}}</span>
+        <span class="place">{{station.location.name}}</span>
+      </div>
+      <span class="line"></span>
+      <div class="status" [ngClass]="status"></div>
+    </div>
+    <div class="measurement-container">
+      <span class="temperature">{{lastMeasurement.temperature.toFixed(2)}} ºC</span>
+      <span class="humidity">{{lastMeasurement.humidity.toFixed(2)}} %</span>
+    </div>
+    <div class="last-record">
+      <hr>
+      <span>Última medición: {{lastMeasurement.date}}</span>
+      <hr>
+    </div>
+  </div>
+</div>
+

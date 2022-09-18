@@ -1,0 +1,70 @@
+header {
+  .toolbar-background {
+    width: 101%;
+    position: absolute;
+    top: -40px;
+    left: 0px;
+    height: 16rem;
+    background: #1976d2;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 50% 68%, 0% 100%);
+  }
+
+  img.kairos-logo {
+    display: block;
+    width: 10rem;
+    margin: auto;
+    position: relative;
+    top: 4.5rem;
+    right: 19px;
+  }
+
+  .toolbar-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    span.kairos-logo-title {
+      text-shadow: 1px -1px 4px #0dddcf;
+      font-family: "Dalek", Arial, Helvetica, sans-serif;
+    }
+
+    img.kairos-logo {
+      display: block;
+      width: 10rem;
+      margin: auto;
+      position: relative;
+      top: 5rem;
+      right: 0;
+    }
+
+    a {
+      text-decoration: none;
+      position: absolute;
+      top: 2rem;
+      left: 0;
+      right: 0;
+      color: white !important;
+      display: inline-table;
+      margin: auto;
+      font-size: 3rem;
+
+      &:hover span {
+        color: #dfdfdf;
+        text-shadow: 3px 1px 12px #00fdec;
+      }
+
+      & span {
+        position: relative;
+        bottom: 15px;
+      }
+
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      margin: 0 16px;
+    }
+  }
+}
