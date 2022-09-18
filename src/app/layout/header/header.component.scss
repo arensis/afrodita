@@ -24,11 +24,6 @@ header {
     left: 0;
     right: 0;
 
-    span.kairos-logo-title {
-      text-shadow: 1px -1px 4px #0dddcf;
-      font-family: "Dalek", Arial, Helvetica, sans-serif;
-    }
-
     img.kairos-logo {
       display: block;
       width: 10rem;
@@ -49,14 +44,16 @@ header {
       margin: auto;
       font-size: 3rem;
 
-      &:hover span {
+      &:hover span.kairos-logo-title {
         color: #dfdfdf;
         text-shadow: 3px 1px 12px #00fdec;
       }
 
-      & span {
+      span.kairos-logo-title {
         position: relative;
         bottom: 15px;
+        text-shadow: 1px -1px 4px #0dddcf;
+        font-family: "Dalek", Arial, Helvetica, sans-serif;
       }
 
       text-decoration: none;
@@ -66,5 +63,33 @@ header {
     img {
       margin: 0 16px;
     }
+  }
+}
+
+@media screen and (max-width: 376px) {
+  header {
+    .toolbar-background {
+      height: 12rem !important;
+    }
+
+    img.kairos-logo {
+      top: 3.8rem !important;
+      width: 6rem !important;
+    }
+
+    .toolbar-container {
+      a {
+        span.kairos-logo-title {
+          font-size: 1.95rem !important;
+          bottom: 2rem !important;
+        }
+      }
+  }
+  }
+}
+
+@media screen and (max-width: 575px) and (min-width: 376px) {
+  header .toolbar-background {
+    height: 16rem !important;
   }
 }

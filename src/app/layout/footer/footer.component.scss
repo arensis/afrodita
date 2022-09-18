@@ -50,18 +50,22 @@ footer {
 
 @media screen and (max-width: 376px) {
   svg#clouds {
-    left: -436px;
-    height: 37%;
+    left: -436px !important;
+    height: 37% !important;
   }
 
   .footer-container a {
     align-items: flex-end !important;
+
+    span {
+      margin-bottom: 0.3rem;
+    }
   }
 }
 
 @media screen and (max-width: 575px) and (min-width: 376px) {
   svg#clouds {
-    left: -384px;
-    height: 32%;
+    left: -384px !important;
+    height: 32% !important;
   }
 }
