@@ -10,10 +10,10 @@ footer {
   svg#clouds {
     position: fixed;
     bottom: -160px;
-    left: -140px;
     z-index: -10;
     width: 1920px;
-    height: 45%;
+    left: -23rem;
+    height: 18rem;
   }
 
   .footer-container {
@@ -54,18 +54,43 @@ footer {
     height: 37% !important;
   }
 
-  .footer-container a {
-    align-items: flex-end !important;
+  .footer-container {
+    a {
+      align-items: flex-end !important;
 
-    span {
-      margin-bottom: 0.3rem;
+      span {
+        margin-bottom: 0.3rem;
+      }
     }
+
+    padding: 12px !important;
   }
 }
 
 @media screen and (max-width: 575px) and (min-width: 376px) {
   svg#clouds {
-    left: -384px !important;
-    height: 32% !important;
+    left: -25rem !important;
+    height: 17rem !important;
   }
 }
+
+@media screen and (min-width: 500px) and (max-width: 980px) and (orientation: landscape) {
+  .footer-container {
+    padding: 0 0 8px 4px !important;
+
+    a {
+      span {
+        display: none;
+      }
+    }
+  }
+
+  svg#clouds {
+    left: -84.2rem !important;
+    height: 13.4rem !important;
+  }
+}
+
+
+
+

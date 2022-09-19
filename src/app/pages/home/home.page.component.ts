@@ -7,6 +7,7 @@ import { StationsService } from 'src/app/services/stations.service';
   styleUrls: ['./home.page.component.scss']
 })
 export class HomePageComponent implements OnInit {
+
   stations: any[] = [];
   // stations: any[] = [
   //   {
@@ -30,7 +31,9 @@ export class HomePageComponent implements OnInit {
   // ];
   stationSubscription: any;
 
-  constructor(private stationsService: StationsService) {}
+  constructor(private stationsService: StationsService) {
+
+  }
 
   ngOnInit(): void {
     this.stationsService.getAll().subscribe((data: any[])=>{
@@ -45,3 +48,4 @@ export class HomePageComponent implements OnInit {
     }
   }
 }
+

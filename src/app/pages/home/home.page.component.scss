@@ -13,10 +13,32 @@
   p {
     margin-top: 4px;
   }
+
+  .card-grid {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 @media screen and (max-width: 376px) {
   .content {
     margin-top: 10.2rem;
+  }
+
+  .content .card-grid:last-child {
+    margin-bottom: 4rem;
+  }
+}
+
+@media screen and (min-width: 500px) and (max-width: 980px) and (orientation: landscape) {
+  .content {
+    margin-top: 4rem;
+    font-size: 11px;
+
+    .card-grid {
+      justify-content: space-evenly;
+    }
   }
 }

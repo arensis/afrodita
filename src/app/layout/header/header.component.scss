@@ -93,3 +93,27 @@ header {
     height: 16rem !important;
   }
 }
+
+@media screen and (min-width: 500px) and (max-width: 980px) and (orientation: landscape) {
+  header {
+    .toolbar-background {
+      top: 22px;
+      clip-path: polygon(0% 18%, 100% 18%, 100% 0%, 0% 0%);
+    }
+
+    .toolbar-container {
+      img.kairos-logo {
+        display: block;
+        margin: auto;
+        position: relative;
+        width: 5rem !important;
+        top: 0.3rem !important;
+        right: 43% !important;
+      }
+
+      a span {
+        bottom: 14px !important;
+      }
+    }
+  }
+}

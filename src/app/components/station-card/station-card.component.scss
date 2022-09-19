@@ -128,3 +128,16 @@
   }
 }
 
+@media screen and (max-width: 376px) {
+  .card-container {
+    margin-top: 0 !important;
+  }
+}
+
+@media screen and (max-width: 575px) and (min-width: 376px) {
+  .card-container {
+    margin-top: 0 !important;
+  }
+}
+
+
