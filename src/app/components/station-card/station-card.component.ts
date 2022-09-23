@@ -10,17 +10,21 @@ export class StationCardComponent implements OnInit, OnChanges {
   station: any;
 
   lastMeasurement: any;
+  lastMeasurementDateTimeLocal!: Date;
+  formatedLastMeasurementLocalize!: string;
   status: string = 'warning';
 
   ngOnInit(): void {
-    console.log('OnInit station', this.station);
-    console.log('OnInit status', this.status);
     this.lastMeasurement = this.getLastMeasurement();
+    this.lastMeasurementDateTimeLocal = new Date(this.lastMeasurement.date);
+    this.formatedLastMeasurementLocalize = this.buildFormatedLastMeasurementLocalize();
     this.status = this.stationStatus();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.lastMeasurement = this.getLastMeasurement();
+    this.lastMeasurementDateTimeLocal = new Date(this.lastMeasurement.date);
+    this.formatedLastMeasurementLocalize = this.buildFormatedLastMeasurementLocalize();
     this.status = this.stationStatus();
   }
 
@@ -30,7 +34,8 @@ export class StationCardComponent implements OnInit, OnChanges {
 
   private stationStatus(): string {
     let now = Date.now();
-    let measurementDate = this.stringDateTimeToMilliseconds(this.lastMeasurement.date);
+    let measurementDate = this.lastMeasurementDateTimeLocal.getTime()
+    console.log(`now: ${now}, measurementDate: ${measurementDate}`)
     var diff = Math.abs(Math.round((now - measurementDate) / 1000));
 
     if (diff > 240 && diff < 600) {
@@ -42,15 +47,7 @@ export class StationCardComponent implements OnInit, OnChanges {
     return 'online'
   }
 
-  private stringDateTimeToMilliseconds(stringDateTime: string): number {
-    console.log('stringDateTimeToMilliseconds stringDateTime', stringDateTime);
-    const dateString = stringDateTime.split('h')[0]
-    const [dateValues, timeValues] = dateString.split(' ');
-
-    const [day, month, year] = dateValues.split('/');
-    const transformedYear = '20' + year;
-    const [hours, minutes] = timeValues.split(':');
-
-    return new Date(+transformedYear, +month - 1, +day, +hours, +minutes).getTime();
+  private buildFormatedLastMeasurementLocalize(): string {
+    return this.lastMeasurementDateTimeLocal.toLocaleDateString("es-ES", { weekday: 'long', day: 'numeric',  month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false });
   }
 }

@@ -8,44 +8,44 @@ import { StationsService } from 'src/app/services/stations.service';
 })
 export class HomePageComponent implements OnInit {
 
-  stations: any[] = [];
-  // stations: any[] = [
-  //   {
-  //     _id: {
-  //       $oid: "6321a90407ddd45232f83b82"
-  //     },
-  //     createdDate: "14/09/22 10:12h",
-  //     location: {
-  //         name: "Casa Consuelo",
-  //         indoor: true,
-  //         city: "Vegadeo",
-  //         latitude: 43.463297,
-  //         longitude: -7.051219
-  //     },
-  //     measurements: [
-  //       {date: "14/09/22 15:05h", temperature: 28.0, humidity: 73.0},
-  //       {date: "14/09/22 15:05h", temperature: 27.60000038, humidity: 74.0},
-  //       {date: "14/09/22 15:11h", temperature: 27.29999924, humidity: 75.0},
-  //     ]
-  //   }
-  // ];
-  stationSubscription: any;
+  // stations: any[] = [];
+  stations: any[] = [
+    {
+      _id: {
+        $oid: "6321a90407ddd45232f83b82"
+      },
+      createdDate: "14/09/22 10:12h",
+      location: {
+          name: "Casa Consuelo",
+          indoor: true,
+          city: "Vegadeo",
+          latitude: 43.463297,
+          longitude: -7.051219
+      },
+      measurements: [
+        {date: "2022-09-23 11:41:31.603339+00:00", temperature: 28.0, humidity: 73.0},
+        {date: "2022-09-23 12:41:31.603339+00:00", temperature: 27.60000038, humidity: 74.0},
+        {date: "2022-09-23 15:01:31.603339+00:00", temperature: 27.29999924, humidity: 75.0},
+      ]
+    }
+  ];
+  // stationSubscription: any;
 
   constructor(private stationsService: StationsService) {
 
   }
 
   ngOnInit(): void {
-    this.stationsService.getAll().subscribe((data: any[])=>{
-      console.log('stations', data);
-      this.stations = data;
-    });
+    // this.stationsService.getAll().subscribe((data: any[])=>{
+    //   console.log('stations', data);
+    //   this.stations = data;
+    // });
   }
 
   ngOnDestroy(): void {
-    if (this.stationSubscription) {
-      this.stationSubscription.unsubscribe();
-    }
+    // if (this.stationSubscription) {
+    //   this.stationSubscription.unsubscribe();
+    // }
   }
 }
 
