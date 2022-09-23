@@ -6,15 +6,20 @@
         <span class="place">{{station.location.name}}</span>
       </div>
       <span class="line"></span>
-      <div class="status" [ngClass]="status"></div>
+      <div *ngIf="station.measurements.length > 0" class="status" [ngClass]="status"></div>
+      <div *ngIf="!(station.measurements.length > 0)" class="status offline"></div>
     </div>
-    <div class="measurement-container">
+    <div *ngIf="station.measurements.length > 0" class="measurement-container">
       <span class="temperature">{{lastMeasurement.temperature.toFixed(2)}} ºC</span>
       <span class="humidity">{{lastMeasurement.humidity.toFixed(2)}} %</span>
     </div>
+    <div *ngIf="!(station.measurements.length > 0)" class="measurement-container">
+      <span class="no-data">Sin datos</span>
+    </div>
     <div class="last-record">
       <hr>
-      <span>Última medición: {{formatedLastMeasurementLocalize}}</span>
+      <span *ngIf="station.measurements.length > 0">Última medición: {{formatedLastMeasurementLocalize}}</span>
+      <span *ngIf="!(station.measurements.length > 0)">Sin datos</span>
       <hr>
     </div>
   </div>

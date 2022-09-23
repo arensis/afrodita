@@ -15,17 +15,22 @@ export class StationCardComponent implements OnInit, OnChanges {
   status: string = 'warning';
 
   ngOnInit(): void {
-    this.lastMeasurement = this.getLastMeasurement();
-    this.lastMeasurementDateTimeLocal = new Date(this.lastMeasurement.date);
-    this.formatedLastMeasurementLocalize = this.buildFormatedLastMeasurementLocalize();
-    this.status = this.stationStatus();
+    if (this.station.measurements.length > 0) {
+      this.lastMeasurement = this.getLastMeasurement();
+      this.lastMeasurementDateTimeLocal = new Date(this.lastMeasurement.date);
+      this.formatedLastMeasurementLocalize = this.buildFormatedLastMeasurementLocalize();
+      this.status = this.stationStatus();
+    }
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.lastMeasurement = this.getLastMeasurement();
-    this.lastMeasurementDateTimeLocal = new Date(this.lastMeasurement.date);
-    this.formatedLastMeasurementLocalize = this.buildFormatedLastMeasurementLocalize();
-    this.status = this.stationStatus();
+    if (this.station.measurements.length > 0) {
+      this.lastMeasurement = this.getLastMeasurement();
+      this.lastMeasurementDateTimeLocal = new Date(this.lastMeasurement.date);
+      this.formatedLastMeasurementLocalize = this.buildFormatedLastMeasurementLocalize();
+      this.status = this.stationStatus();
+    }
   }
 
   private getLastMeasurement(): any {

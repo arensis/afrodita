@@ -64,6 +64,7 @@
 
   .status {
     min-width: 15px;
+    min-height: 15px;
     border-radius: 100%;
     border: 1px solid white;
 
@@ -104,6 +105,11 @@
   align-items: center;
   width: 100%;
   height: 55%;
+
+  .no-data {
+    white-space: nowrap;
+    margin: auto;
+  }
 
   .temperature {
     padding: 12px;
