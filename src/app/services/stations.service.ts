@@ -7,7 +7,7 @@ import { catchError, map, retry } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class StationsService {
-  api = 'http://127.0.0.1:5000';
+  api = 'https://kairos.alfonsomadrid.net:5000';
 
   constructor(private http: HttpClient) { }
 
