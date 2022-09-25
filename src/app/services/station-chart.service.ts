@@ -88,13 +88,13 @@ export class StationChartService {
 
   private buildCurrentDayTemperatureMeasurements(measurements: any[]) {
     return measurements.map((measurement: any) => {
-      return {x: new Date(measurement.date), y: measurement.temperature.toFixed(2)};
+      return {x: this.buildUniversalDateTimeLocal(measurement.date), y: measurement.temperature.toFixed(2)};
     });
   }
 
   private buildCurrentDayHumidityMeasurements(measurements: any[]) {
     return measurements.map((measurement: any) => {
-      return {x: new Date(measurement.date), y: measurement.humidity.toFixed(2)}
+      return {x: this.buildUniversalDateTimeLocal(measurement.date), y: measurement.humidity.toFixed(2)}
     });
   }
 
@@ -104,5 +104,9 @@ export class StationChartService {
 
   private getMinCurrentDayTemperature(measurements: any[]): number {
     return Math.min(...measurements.map((measurement: any) => measurement.temperature));
+  }
+
+  private buildUniversalDateTimeLocal(date: string): Date {
+    return new Date(date.slice(0, 19).split(' ').join('T').concat('Z'));
   }
 }

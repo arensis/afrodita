@@ -49,10 +49,20 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  private findMeasurementsFronDate(date: Date, measurements: any) {
+    const parsedDate = date.toLocaleString("es-ES", { day: "numeric", month: 'numeric', year:'numeric'});
+    const filterMeasurements = measurements.filter((measurement: any) => {
+      const measurementDate = this.buildUniversalDateTimeLocal(measurement.date).toLocaleString("es-ES", { day: "numeric", month: 'numeric', year:'numeric'});
+      return measurementDate === parsedDate;
+    })
+
+    return filterMeasurements;
+  }
+
   private buildTodaymeasurements(measurements: any) {
     const now = new Date().toLocaleString("es-ES", { day: "numeric", month: 'numeric', year:'numeric'});
     const filterMeasurements = measurements.filter((measurement: any) => {
-      const measurementDate = new Date(measurement.date).toLocaleString("es-ES", { day: "numeric", month: 'numeric', year:'numeric'});
+      const measurementDate = this.buildUniversalDateTimeLocal(measurement.date).toLocaleString("es-ES", { day: "numeric", month: 'numeric', year:'numeric'});
       return measurementDate === now;
     })
 
@@ -61,5 +71,9 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
 
   private getLastMeasurement(): any {
     return this.station.measurements.at(-1);
+  }
+
+  private buildUniversalDateTimeLocal(date: string): Date {
+    return new Date(date.slice(0, 19).split(' ').join('T').concat('Z'));
   }
 }

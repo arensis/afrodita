@@ -17,7 +17,7 @@ export class StationCardComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     if (this.station.measurements.length > 0) {
       this.lastMeasurement = this.getLastMeasurement();
-      this.lastMeasurementDateTimeLocal = new Date(this.lastMeasurement.date);
+      this.lastMeasurementDateTimeLocal = this.buildUniversalDateTimeLocal();
       this.formatedLastMeasurementLocalize = this.buildFormatedLastMeasurementLocalize();
       this.status = this.stationStatus();
     }
@@ -27,7 +27,7 @@ export class StationCardComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (this.station.measurements.length > 0) {
       this.lastMeasurement = this.getLastMeasurement();
-      this.lastMeasurementDateTimeLocal = new Date(this.lastMeasurement.date);
+      this.lastMeasurementDateTimeLocal = this.buildUniversalDateTimeLocal();
       this.formatedLastMeasurementLocalize = this.buildFormatedLastMeasurementLocalize();
       this.status = this.stationStatus();
     }
@@ -43,7 +43,7 @@ export class StationCardComponent implements OnInit, OnChanges {
 
     var diff = Math.abs(Math.round((now - measurementDate) / 1000));
 
-    if (diff > 240 && diff < 600) {
+    if (diff > (45 * 60 * 1000) && diff < (60 * 60 * 1000)) {
       return 'warning';
     } else if (diff > 600) {
       return 'offline';
@@ -53,6 +53,10 @@ export class StationCardComponent implements OnInit, OnChanges {
   }
 
   private buildFormatedLastMeasurementLocalize(): string {
-    return this.lastMeasurementDateTimeLocal.toLocaleDateString("es-ES", { weekday: 'long', day: 'numeric',  month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false });
+    return this.lastMeasurementDateTimeLocal.toLocaleDateString("es-ES", { weekday: 'long', day: 'numeric',  month: 'numeric', year: 'numeric', hour: '2-digit', minute: 'numeric', hour12: false });
+  }
+
+  private buildUniversalDateTimeLocal(): Date {
+    return new Date(this.lastMeasurement.date.slice(0, 19).split(' ').join('T').concat('Z'));
   }
 }
