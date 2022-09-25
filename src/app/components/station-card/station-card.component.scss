@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 16px;
+  padding: 0 4px;
 
   .card:not(:last-child) {
     margin-right: 0;
@@ -17,9 +18,9 @@
 
 .card {
   all: unset;
-  border-radius: 4px;
+  border-radius: 8px;
   border: 1px solid #eee;
-  background-color: #07adad;
+  background-color: #018ca3d4;
   height: 120px;
   width: 300px;
   margin: 0 8px 8px;
@@ -111,9 +112,22 @@
     margin: auto;
   }
 
+  .temperature > i, .humidity > i {
+    font-size: 1.8rem;
+    margin-right: 4px;
+  }
+
+  .temperature, .humidity {
+    display: flex;
+    align-items: center;
+  }
+
   .temperature {
     padding: 12px;
     white-space: nowrap;
+    i {
+      margin-top: 6px;
+    }
   }
 
   .humidity {

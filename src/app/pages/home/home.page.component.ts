@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StationsService } from 'src/app/services/stations.service';
 
 @Component({
-  selector: 'arm-home.page',
+  selector: 'arm-home-page',
   templateUrl: './home.page.component.html',
   styleUrls: ['./home.page.component.scss']
 })
@@ -15,7 +15,6 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.stationsService.getAll().subscribe((data: any[])=>{
-      console.log('stations', data);
       this.stations = data;
     });
   }

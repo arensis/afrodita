@@ -5,25 +5,29 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { StationCardComponent } from './components/station-card/station-card.component';
-import { HomePageComponent } from './pages/home/home.page.component';
-import { FooterComponent } from './layout/footer/footer.component';
-import { HeaderComponent } from './layout/header/header.component';
+import * as Components from './components';
+import * as Layout from './layout';
+import * as Pages from './pages';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    StationCardComponent,
-    HomePageComponent,
-    FooterComponent,
-    HeaderComponent
-  ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    CommonModule
+    CommonModule,
+    NgApexchartsModule
+  ],
+  declarations: [
+    AppComponent,
+    Components.StationCardComponent,
+
+    Pages.HomePageComponent,
+    Pages.StationDetailsPageComponent,
+
+    Layout.FooterComponent,
+    Layout.HeaderComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

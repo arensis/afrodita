@@ -7,11 +7,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-// @media screen and (max-width: 376px) {
-//   :host {
-//     font-size: 10px !important;
-//   }
-// }
 main {
   z-index: 1;
+  margin-top: 16rem;
+}
+
+@media screen and (max-width: 376px) {
+  main {
+    margin-top: 9rem;
+  }
+}
+
+@media screen and (min-width: 500px) and (max-width: 980px) and (orientation: landscape) {
+  main {
+    margin-top: 5rem;
+  }
 }

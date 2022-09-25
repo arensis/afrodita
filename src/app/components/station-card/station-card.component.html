@@ -10,8 +10,12 @@
       <div *ngIf="!(station.measurements.length > 0)" class="status offline"></div>
     </div>
     <div *ngIf="station.measurements.length > 0" class="measurement-container">
-      <span class="temperature">{{lastMeasurement.temperature.toFixed(2)}} ºC</span>
-      <span class="humidity">{{lastMeasurement.humidity.toFixed(2)}} %</span>
+      <span class="temperature">
+        <i class="wi wi-thermometer"></i>{{lastMeasurement.temperature.toFixed(2)}} ºC
+      </span>
+      <span class="humidity">
+        <i class="wi wi-humidity"></i>{{lastMeasurement.humidity.toFixed(2)}}
+      </span>
     </div>
     <div *ngIf="!(station.measurements.length > 0)" class="measurement-container">
       <span class="no-data">Sin datos</span>

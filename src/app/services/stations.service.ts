@@ -12,6 +12,12 @@ export class StationsService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<any[]> {
-    return this.http.get<any[]>(this.api + '/stations');
+    const fullUrl = [this.api, 'stations'].join('/');
+    return this.http.get<any[]>(fullUrl);
+  }
+
+  getStation(id: string): Observable<any> {
+    const fullUrl = [this.api, 'station', id].join('/');
+    return this.http.get<any[]>(fullUrl);
   }
 }
