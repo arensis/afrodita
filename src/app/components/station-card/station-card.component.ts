@@ -45,7 +45,7 @@ export class StationCardComponent implements OnInit, OnChanges {
 
     if (diff > (45 * 60 * 1000) && diff < (60 * 60 * 1000)) {
       return 'warning';
-    } else if (diff > 600) {
+    } else if (diff > (60 * 60 * 1000)) {
       return 'offline';
     }
 
