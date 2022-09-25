@@ -15,7 +15,6 @@ export class StationCardComponent implements OnInit, OnChanges {
   status: string = 'warning';
 
   ngOnInit(): void {
-
     if (this.station.measurements.length > 0) {
       this.lastMeasurement = this.getLastMeasurement();
       this.lastMeasurementDateTimeLocal = new Date(this.lastMeasurement.date);
@@ -26,8 +25,6 @@ export class StationCardComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.buildCategories();
-    console.log('caca')
     if (this.station.measurements.length > 0) {
       this.lastMeasurement = this.getLastMeasurement();
       this.lastMeasurementDateTimeLocal = new Date(this.lastMeasurement.date);
@@ -57,23 +54,5 @@ export class StationCardComponent implements OnInit, OnChanges {
 
   private buildFormatedLastMeasurementLocalize(): string {
     return this.lastMeasurementDateTimeLocal.toLocaleDateString("es-ES", { weekday: 'long', day: 'numeric',  month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false });
-  }
-
-  private buildCategories(): string[] {
-    console.log('mierda');
-    let start = new Date(new Date().setUTCHours(-2,0,0,0)).getTime();
-    // const hourStep = 60 * 60 * 1000;
-    let steps: string[] = [];
-
-    // for(let i = 0; i < 24; i++) {
-    //   console.log('start', new Date(start).toLocaleTimeString());
-    //   start += hourStep;
-    //   console.log('start after added one hour', new Date(start).toLocaleTimeString());
-    //   steps.push(new Date(start).toLocaleTimeString())
-    // }
-
-    console.log('steps', steps);
-
-    return steps;
   }
 }

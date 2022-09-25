@@ -2,27 +2,8 @@ import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { StationsService } from "src/app/services/stations.service";
-
-import {
-  ChartComponent,
-  ApexAxisChartSeries,
-  ApexChart,
-  ApexXAxis,
-  ApexYAxis,
-  ApexStroke,
-  ApexMarkers,
-  ApexTooltip
-} from "ng-apexcharts";
-
-export type ChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  xaxis: ApexXAxis;
-  stroke: ApexStroke;
-  markers: ApexMarkers;
-  yaxis: ApexYAxis | ApexYAxis[];
-  tooltip: ApexTooltip;
-};
+import { ChartComponent } from "ng-apexcharts";
+import { ChartOptions, StationChartService } from "src/app/services/station-chart.service";
 
 @Component({
   selector: 'arm-station-details',
@@ -31,7 +12,7 @@ export type ChartOptions = {
 })
 export class StationDetailsPageComponent implements OnInit, OnDestroy {
   @ViewChild("chart") chart!: ChartComponent;
-  public chartOptions: ChartOptions;
+  public chartOptions!: ChartOptions;
 
   station!: any;
   lastMeasurement!: any;
@@ -41,38 +22,10 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
   stationServiceSubscription!: Subscription;
   todayMeasurements!: any;
 
-  constructor(private stationsService: StationsService, private route: ActivatedRoute) {
-    this.chartOptions = {
-      series: [],
-      chart: {
-        toolbar: {
-          show: false
-        },
-        type: "line",
-        height: 320
-      },
-      xaxis: {
-        type: "datetime",
-        labels: {
-          datetimeUTC: false
-        }
-      },
-      yaxis: [],
-      stroke: {
-        curve: "smooth"
-      },
-      markers: {
-        size: 1
-      },
-      tooltip: {
-        x: {
-          formatter: function(y) {
-            return new Date(y).toLocaleTimeString("es-ES");
-          }
-        }
-      }
-    };
-  }
+  constructor(
+    private stationsService: StationsService,
+    private stationChartService: StationChartService,
+    private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.routeSubscription = this.route.paramMap.subscribe(params => {
@@ -81,47 +34,8 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
         this.station = station;
         this.todayMeasurements = this.buildTodaymeasurements(station.measurements);
         this.lastMeasurement = this.getLastMeasurement();
-
-        const temperatureData = this.todayMeasurements.map((measurement: any) => {
-          return {x: new Date(measurement.date), y: measurement.temperature.toFixed(2)};
-        });
-
-        const humidityData = this.todayMeasurements.map((measurement: any) => {
-          return {x: new Date(measurement.date), y: measurement.humidity.toFixed(2)}
-        })
-
-        this.chartOptions.series = [
-          {
-            name: 'Temperatura',
-            type: "line",
-            data: temperatureData,
-            color: '#FF0000'
-          },
-          {
-            name: 'Humedad',
-            type: "area",
-            data: humidityData,
-            color: '#71bdff'
-          }
-        ];
-
-        this.chartOptions.yaxis = [
-          {
-            title: {
-              text: 'Temperatura'
-            },
-            min: Math.min(...this.todayMeasurements.map((measurement: any) => measurement.temperature)),
-            max: Math.max(...this.todayMeasurements.map((measurement: any) => measurement.temperature)),
-            tickAmount: 5
-          },
-          {
-            opposite: true,
-            title: {
-              text: 'Humedad'
-            }
-          }
-        ]
-      })
+        this.chartOptions = this.stationChartService.buildDataChart(this.todayMeasurements);
+      });
     });
   }
 
