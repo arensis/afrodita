@@ -83,21 +83,6 @@
   }
 }
 
-@media screen and (max-width: 767px) {
-  .card-container > *:not(.circle-link) ,
-  .terminal {
-    width: 100%;
-  }
-
-  .card:not(.highlight-card) {
-    margin: 8px 0;
-  }
-
-  .card.highlight-card span {
-    margin-left: 72px;
-  }
-}
-
 .measurement-container {
   font-size: 1.5rem;
   display: flex;
@@ -160,4 +145,16 @@
   }
 }
 
+@media screen and (max-width: 767px) {
+  .card-container > *:not(.circle-link) {
+    width: 100%;
+  }
 
+  .card:not(.highlight-card) {
+    margin: 8px 0;
+  }
+
+  .card.highlight-card span {
+    margin-left: 72px;
+  }
+}
