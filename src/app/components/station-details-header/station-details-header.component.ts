@@ -22,7 +22,6 @@ export class StationDetailsHeaderComponent implements OnChanges {
   formatedCurrentDate!: string;
 
   ngOnChanges(): void {
-    console.log('cabecera on changes');
     this.formatedCurrentDate = this.buildCurrentDateLocalString();
   }
 

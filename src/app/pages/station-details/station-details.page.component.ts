@@ -34,7 +34,6 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
       this.stationServiceSubscription = this.station = this.stationsService.getStation(this.stationId).subscribe(station => {
         this.station = station;
         this.currentDate = new Date();
-        console.log('init currentDate', this.currentDate);
         this.currentMeasurements = this.findMeasurementsFromDate(this.currentDate, station.measurements);
         this.lastMeasurement = this.getLastMeasurement();
         this.chartOptions = this.stationChartService.buildDataChart(this.currentMeasurements);
