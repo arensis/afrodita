@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, OnChanges, Output } from "@angular/core
 })
 export class StationDetailsHeaderComponent implements OnChanges {
   @Input()
-  currentMeasurement: any;
+  lastestMeasurement: any;
   @Input()
   station: any;
   @Input()
