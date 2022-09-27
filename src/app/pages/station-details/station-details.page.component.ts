@@ -20,7 +20,8 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
 
   routeSubscription!: Subscription;
   stationServiceSubscription!: Subscription;
-  todayMeasurements!: any;
+  currentMeasurements!: any;
+  currentDate!: Date;
 
   constructor(
     private stationsService: StationsService,
@@ -32,9 +33,11 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
       this.stationId = params.get('stationId') || '';
       this.stationServiceSubscription = this.station = this.stationsService.getStation(this.stationId).subscribe(station => {
         this.station = station;
-        this.todayMeasurements = this.buildTodaymeasurements(station.measurements);
+        this.currentDate = new Date();
+        console.log('init currentDate', this.currentDate);
+        this.currentMeasurements = this.findMeasurementsFromDate(this.currentDate, station.measurements);
         this.lastMeasurement = this.getLastMeasurement();
-        this.chartOptions = this.stationChartService.buildDataChart(this.todayMeasurements);
+        this.chartOptions = this.stationChartService.buildDataChart(this.currentMeasurements);
       });
     });
   }
@@ -49,7 +52,26 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  private findMeasurementsFronDate(date: Date, measurements: any) {
+  forwardDate(): void {
+    var date = new Date(this.currentDate.toDateString());
+    date.setDate(this.currentDate.getDate() + 1);
+    this.currentDate = date;
+
+    this.currentMeasurements = this.findMeasurementsFromDate(this.currentDate, this.station.measurements);
+    this.chartOptions = this.stationChartService.buildDataChart(this.currentMeasurements);
+
+  }
+
+  backwardDate(): void {
+    var date = new Date(this.currentDate.toDateString());
+    date.setDate(this.currentDate.getDate() - 1);
+    this.currentDate = date;
+
+    this.currentMeasurements = this.findMeasurementsFromDate(this.currentDate, this.station.measurements);
+    this.chartOptions = this.stationChartService.buildDataChart(this.currentMeasurements);
+  }
+
+  private findMeasurementsFromDate(date: Date, measurements: any): any {
     const parsedDate = date.toLocaleString("es-ES", { day: "numeric", month: 'numeric', year:'numeric'});
     const filterMeasurements = measurements.filter((measurement: any) => {
       const measurementDate = this.buildUniversalDateTimeLocal(measurement.date).toLocaleString("es-ES", { day: "numeric", month: 'numeric', year:'numeric'});

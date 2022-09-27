@@ -1,27 +1,10 @@
-<div class="page-header">
-  <div class="station-identification" *ngIf="!!station?.location">
-    <span class="name">{{station.location.city}}</span>
-    <span class="place">{{station.location.name}}</span>
-  </div>
-  <div class="station-current-state">
-    <span class="temperature" *ngIf="!!lastMeasurement?.temperature">
-      <i class="wi wi-thermometer"></i>
-      <span>{{lastMeasurement.temperature.toFixed(2)}} ºC</span>
-    </span>
-    <span class="humidity" *ngIf="!!lastMeasurement?.humidity">
-      <i class="wi wi-humidity"></i>
-      <span>{{lastMeasurement.humidity.toFixed(2)}}</span>
-    </span>
-    <span class="barometer" *ngIf="!!lastMeasurement?.barometer">
-      <i class="wi wi-barometer"></i>
-      <span>1092 Pha</span>
-    </span>
-    <span class="uv-factor" *ngIf="!!lastMeasurement?.uvFactor">
-      <i class="wi wi-day-sunny"></i>
-      <span>50 UV</span>
-    </span>
-  </div>
-</div>
+<arm-station-details-header
+  [station]="station"
+  [currentDate]="currentDate"
+  [currentMeasurement]="currentMeasurements"
+  (onBackwardDate)="backwardDate()"
+  (onForwardDate)="forwardDate()"
+></arm-station-details-header>
 <apx-chart
   *ngIf="!!chartOptions && !!chartOptions.series"
   [series]="chartOptions.series"

@@ -22,6 +22,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
   declarations: [
     AppComponent,
     Components.StationCardComponent,
+    Components.StationDetailsHeaderComponent,
+    Components.StepButtonComponent,
 
     Pages.HomePageComponent,
     Pages.StationDetailsPageComponent,

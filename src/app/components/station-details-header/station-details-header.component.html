@@ -1,0 +1,38 @@
+<div class="page-header">
+  <arm-step-button
+    [stepButtonType]="StepButtonType.BACKWARD"
+    (onClick)="backwardDate()"
+  ></arm-step-button>
+  <div class="station-info-container">
+    <div class="station-identification" *ngIf="!!station?.location">
+      <div class="name">{{station.location.city}}</div>
+      <div class="specific-info">
+        <span class="place">{{station.location.name}}</span>
+        <span class="date">{{formatedCurrentDate}}</span>
+      </div>
+
+    </div>
+    <div class="station-current-state">
+      <span class="temperature" *ngIf="!!currentMeasurement?.temperature">
+        <i class="wi wi-thermometer"></i>
+        <span>{{currentMeasurement.temperature.toFixed(2)}} ºC</span>
+      </span>
+      <span class="humidity" *ngIf="!!currentMeasurement?.humidity">
+        <i class="wi wi-humidity"></i>
+        <span>{{currentMeasurement.humidity.toFixed(2)}}</span>
+      </span>
+      <span class="barometer" *ngIf="!!currentMeasurement?.barometer">
+        <i class="wi wi-barometer"></i>
+        <span>1092 Pha</span>
+      </span>
+      <span class="uv-factor" *ngIf="!!currentMeasurement?.uvFactor">
+        <i class="wi wi-day-sunny"></i>
+        <span>50 UV</span>
+      </span>
+    </div>
+  </div>
+  <arm-step-button
+    [stepButtonType]="StepButtonType.FORWARD"
+    (onClick)="forwardDate()"
+  ></arm-step-button>
+</div>
