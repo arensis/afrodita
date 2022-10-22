@@ -41,11 +41,11 @@ export class StationCardComponent implements OnInit, OnChanges {
     let now = Date.now();
     let measurementDate = this.lastMeasurementDateTimeLocal.getTime()
 
-    var diff = Math.abs(Math.round((now - measurementDate) / 1000));
+    var secondsDiff = Math.abs(Math.round((now - measurementDate) / 1000));
 
-    if (diff > (45 * 60 * 1000) && diff < (60 * 60 * 1000)) {
+    if (secondsDiff > (45 * 60 * 1000) && secondsDiff < (60 * 60)) {
       return 'warning';
-    } else if (diff > (60 * 60 * 1000)) {
+    } else if (secondsDiff > (60 * 60)) {
       return 'offline';
     }
 
