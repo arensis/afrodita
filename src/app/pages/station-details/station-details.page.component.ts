@@ -1,9 +1,12 @@
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs";
+import { Subscription, forkJoin } from "rxjs";
 import { StationsService } from "src/app/services/stations.service";
 import { ChartComponent } from "ng-apexcharts";
 import { ChartOptions, StationChartService } from "src/app/services/station-chart.service";
+import { StationResponseDto } from "src/app/model/station-response.dto";
+import { MeasurementResponseDto } from "src/app/model/station-measurement-response.dto";
+import { MeasurementDto } from "src/app/model/measurement.dto";
 
 @Component({
   selector: 'arm-station-details',
@@ -14,13 +17,13 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: ChartOptions;
 
-  station!: any;
-  lastMeasurement!: any;
+  station!: StationResponseDto;
+  lastMeasurement!: MeasurementResponseDto;
   stationId!: string;
 
   routeSubscription!: Subscription;
   stationServiceSubscription!: Subscription;
-  currentMeasurements!: any;
+  currentMeasurements!: MeasurementDto[];
   currentDate!: Date;
 
   constructor(
@@ -31,11 +34,11 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.routeSubscription = this.route.paramMap.subscribe(params => {
       this.stationId = params.get('stationId') || '';
-      this.stationServiceSubscription = this.station = this.stationsService.getStation(this.stationId).subscribe(station => {
-        this.station = station;
-        this.currentDate = new Date();
-        this.currentMeasurements = this.findMeasurementsFromDate(this.currentDate, station.measurements);
-        this.lastMeasurement = this.getLastMeasurement();
+      this.currentDate = new Date();
+      forkJoin([this.stationsService.getStation(this.stationId), this.stationsService.getMeasurements(this.stationId, this.currentDate)]).subscribe(observer => {
+        this.station = observer[0];
+        this.currentMeasurements = observer[1];
+        this.lastMeasurement = this.station.currentMeasurement;
         this.chartOptions = this.stationChartService.buildDataChart(this.currentMeasurements);
       });
     });
@@ -56,9 +59,10 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
     date.setDate(this.currentDate.getDate() + 1);
     this.currentDate = date;
 
-    this.currentMeasurements = this.findMeasurementsFromDate(this.currentDate, this.station.measurements);
-    this.chartOptions = this.stationChartService.buildDataChart(this.currentMeasurements);
-
+    this.stationsService.getMeasurements(this.stationId, this.currentDate).subscribe(measurements => {
+      this.currentMeasurements = measurements;
+      this.chartOptions = this.stationChartService.buildDataChart(this.currentMeasurements);
+    });
   }
 
   backwardDate(): void {
@@ -66,35 +70,9 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
     date.setDate(this.currentDate.getDate() - 1);
     this.currentDate = date;
 
-    this.currentMeasurements = this.findMeasurementsFromDate(this.currentDate, this.station.measurements);
-    this.chartOptions = this.stationChartService.buildDataChart(this.currentMeasurements);
-  }
-
-  private findMeasurementsFromDate(date: Date, measurements: any): any {
-    const parsedDate = date.toLocaleString("es-ES", { day: "numeric", month: 'numeric', year:'numeric'});
-    const filterMeasurements = measurements.filter((measurement: any) => {
-      const measurementDate = this.buildUniversalDateTimeLocal(measurement.date).toLocaleString("es-ES", { day: "numeric", month: 'numeric', year:'numeric'});
-      return measurementDate === parsedDate;
-    })
-
-    return filterMeasurements;
-  }
-
-  private buildTodaymeasurements(measurements: any) {
-    const now = new Date().toLocaleString("es-ES", { day: "numeric", month: 'numeric', year:'numeric'});
-    const filterMeasurements = measurements.filter((measurement: any) => {
-      const measurementDate = this.buildUniversalDateTimeLocal(measurement.date).toLocaleString("es-ES", { day: "numeric", month: 'numeric', year:'numeric'});
-      return measurementDate === now;
-    })
-
-    return filterMeasurements;
-  }
-
-  private getLastMeasurement(): any {
-    return this.station.measurements.at(-1);
-  }
-
-  private buildUniversalDateTimeLocal(date: string): Date {
-    return new Date(date.slice(0, 19).split(' ').join('T').concat('Z'));
+    this.stationsService.getMeasurements(this.stationId, this.currentDate).subscribe(measurements => {
+      this.currentMeasurements = measurements;
+      this.chartOptions = this.stationChartService.buildDataChart(this.currentMeasurements);
+    });
   }
 }

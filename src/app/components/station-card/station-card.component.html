@@ -6,24 +6,24 @@
         <span class="place">{{station.location.name}}</span>
       </div>
       <span class="line"></span>
-      <div *ngIf="station.measurements.length > 0" class="status" [ngClass]="status"></div>
-      <div *ngIf="!(station.measurements.length > 0)" class="status offline"></div>
+      <div *ngIf="station.currentMeasurement" class="status" [ngClass]="status"></div>
+      <div *ngIf="!(station.currentMeasurement)" class="status offline"></div>
     </div>
-    <div *ngIf="station.measurements.length > 0" class="measurement-container">
+    <div *ngIf="station.currentMeasurement" class="measurement-container">
       <span class="temperature">
-        <i class="wi wi-thermometer"></i>{{lastMeasurement.temperature.toFixed(2)}} ºC
+        <i class="wi wi-thermometer"></i>{{currentMeasurement.temperature.toFixed(2)}} ºC
       </span>
       <span class="humidity">
-        <i class="wi wi-humidity"></i>{{lastMeasurement.humidity.toFixed(2)}}
+        <i class="wi wi-humidity"></i>{{currentMeasurement.humidity.toFixed(2)}}
       </span>
     </div>
-    <div *ngIf="!(station.measurements.length > 0)" class="measurement-container">
+    <div *ngIf="!(station.currentMeasurement)" class="measurement-container">
       <span class="no-data">Sin datos</span>
     </div>
     <div class="last-record">
       <hr>
-      <span *ngIf="station.measurements.length > 0">Última medición: {{formatedLastMeasurementLocalize}}</span>
-      <span *ngIf="!(station.measurements.length > 0)">Sin datos</span>
+      <span *ngIf="station.currentMeasurement">Última medición: {{formatedLastMeasurementLocalize}}</span>
+      <span *ngIf="!(station.currentMeasurement)">Sin datos</span>
       <hr>
     </div>
   </div>

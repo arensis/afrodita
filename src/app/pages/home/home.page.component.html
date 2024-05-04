@@ -3,6 +3,6 @@
   <p>Selecciona la estación para más detalles:</p>
 
   <div class="card-grid">
-    <arm-station-card *ngFor="let station of stations" [station]="station" [routerLink]="['station-details', station._id.$oid]"></arm-station-card>
+    <arm-station-card *ngFor="let station of stations" [station]="station" [routerLink]="['station-details', station.id]"></arm-station-card>
   </div>
 </div>

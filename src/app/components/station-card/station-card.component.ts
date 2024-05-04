@@ -9,24 +9,22 @@ export class StationCardComponent implements OnInit, OnChanges {
   @Input()
   station: any;
 
-  lastMeasurement: any;
+  currentMeasurement: any;
   lastMeasurementDateTimeLocal!: Date;
   formatedLastMeasurementLocalize!: string;
   status: string = 'warning';
 
   ngOnInit(): void {
-    if (this.station.measurements.length > 0) {
-      this.lastMeasurement = this.getLastMeasurement();
-      this.lastMeasurementDateTimeLocal = this.buildUniversalDateTimeLocal();
-      this.formatedLastMeasurementLocalize = this.buildFormatedLastMeasurementLocalize();
-      this.status = this.stationStatus();
-    }
-
+    this.initStationData();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.station.measurements.length > 0) {
-      this.lastMeasurement = this.getLastMeasurement();
+    this.initStationData();
+  }
+
+  private initStationData() {
+    if (this.station.currentMeasurement !== undefined) {
+      this.currentMeasurement = this.station.currentMeasurement;
       this.lastMeasurementDateTimeLocal = this.buildUniversalDateTimeLocal();
       this.formatedLastMeasurementLocalize = this.buildFormatedLastMeasurementLocalize();
       this.status = this.stationStatus();
@@ -57,6 +55,6 @@ export class StationCardComponent implements OnInit, OnChanges {
   }
 
   private buildUniversalDateTimeLocal(): Date {
-    return new Date(this.lastMeasurement.date.slice(0, 19).split(' ').join('T').concat('Z'));
+    return new Date(this.currentMeasurement.date.slice(0, 19).split(' ').join('T').concat('Z'));
   }
 }
