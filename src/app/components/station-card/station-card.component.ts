@@ -13,6 +13,7 @@ export class StationCardComponent implements OnInit, OnChanges {
   lastMeasurementDateTimeLocal!: Date;
   formatedLastMeasurementLocalize!: string;
   status: string = 'warning';
+  hasCurrentMeasurement!: boolean;
 
   ngOnInit(): void {
     this.initStationData();
@@ -23,7 +24,10 @@ export class StationCardComponent implements OnInit, OnChanges {
   }
 
   private initStationData() {
-    if (this.station.currentMeasurement !== undefined) {
+    this.hasCurrentMeasurement = this.initHasCurrentMeasurement();
+    if (this.hasCurrentMeasurement) {
+      console.log('currentMeasurement', this.currentMeasurement);
+      this.hasCurrentMeasurement = true;
       this.currentMeasurement = this.station.currentMeasurement;
       this.lastMeasurementDateTimeLocal = this.buildUniversalDateTimeLocal();
       this.formatedLastMeasurementLocalize = this.buildFormatedLastMeasurementLocalize();
@@ -33,6 +37,11 @@ export class StationCardComponent implements OnInit, OnChanges {
 
   private getLastMeasurement(): any {
     return this.station.measurements.at(-1);
+  }
+
+  private initHasCurrentMeasurement(): boolean {
+    return this.station.currentMeasurement !== undefined &&
+      Object.keys(this.station.currentMeasurement).length > 0;
   }
 
   private stationStatus(): string {
