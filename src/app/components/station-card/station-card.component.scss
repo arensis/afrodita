@@ -99,17 +99,17 @@
     margin: auto;
   }
 
-  .temperature > i, .humidity > i {
+  .temperature > i, .humidity > i, .pressure > i {
     font-size: 1.8rem;
     margin-right: 4px;
   }
 
-  .temperature, .humidity {
+  .temperature, .humidity, .pressure {
     display: flex;
     align-items: center;
   }
 
-  .temperature {
+  .temperature, .pressure {
     padding: 12px;
     white-space: nowrap;
     i {

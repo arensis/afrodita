@@ -10,11 +10,14 @@
       <div *ngIf="!hasCurrentMeasurement" class="status offline"></div>
     </div>
     <div *ngIf="hasCurrentMeasurement" class="measurement-container">
-      <span class="temperature">
+      <span class="temperature" *ngIf="currentMeasurement?.temperature">
         <i class="wi wi-thermometer"></i>{{currentMeasurement?.temperature?.toFixed(2)}} ºC
       </span>
-      <span class="humidity">
+      <span class="humidity" *ngIf="currentMeasurement?.humidity">
         <i class="wi wi-humidity"></i>{{currentMeasurement?.humidity?.toFixed(2)}}
+      </span>
+      <span class="pressure" *ngIf="currentMeasurement?.airPressure">
+        <i class="wi wi-barometer"></i>{{currentMeasurement?.airPressure?.toFixed(2)}} Pa
       </span>
     </div>
     <div *ngIf="!hasCurrentMeasurement" class="measurement-container">
