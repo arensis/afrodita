@@ -51,3 +51,8 @@ import 'zone.js';  // Included with Angular CLI.
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+/** Extra polyfills for iOS 10 Safari */
+import 'whatwg-fetch';
+import 'classlist.js';
+import 'web-animations-js';

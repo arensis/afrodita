@@ -15,8 +15,11 @@
       "prefix": "arm",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
+          "builder": "@angular-builders/custom-webpack:browser",
+            "options": {
+              "customWebpackConfig": {
+                "path": "./webpack.extra.js"
+              },
             "outputPath": "dist/afrodita",
             "baseHref": "/",
             "index": "src/index.html",
@@ -41,7 +44,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "1000kb",
-                  "maximumError": "1500kb"
+                  "maximumError": "4500kb"
                 },
                 {
                   "type": "anyComponentStyle",
