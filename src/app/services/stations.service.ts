@@ -10,7 +10,7 @@ import { MeasurementDto } from '../model/measurement.dto';
   providedIn: 'root'
 })
 export class StationsService {
-  api = 'https://kairos-weather.ddns.net/api/v1';
+  api = 'https://kairos-weather.ddns.net';
 
   constructor(private http: HttpClient) { }
 

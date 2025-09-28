@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
   providedIn: 'root'
 })
 export class StationGroupService {
-  api = 'https://kairos-weather.ddns.net/api/v1';
+  api = 'https://kairos-weather.ddns.net';
 
   constructor(private http: HttpClient) { }
 
