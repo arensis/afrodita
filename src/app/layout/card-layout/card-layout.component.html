@@ -1,0 +1,14 @@
+<div class="card-container">
+  <div class="card">
+    <header [ngClass]="{ 'grouped': isStationGroup }">
+      <ng-content select="[card-header]"></ng-content>
+    </header>
+    <main [ngClass]="{ 'grouped': isStationGroup }">
+      <ng-content select="[card-main]"></ng-content>
+    </main>
+    <footer [ngClass]="{ 'grouped': isStationGroup }">
+      <ng-content select="[card-footer]"></ng-content>
+    </footer>
+  </div>
+</div>
+

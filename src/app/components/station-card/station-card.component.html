@@ -1,34 +1,24 @@
-<div class="card-container">
-  <div class="card">
-    <div class="city">
-      <div class="container">
-        <span class="name">{{station.location.city}}</span>
-        <span class="place">{{station.location.name}}</span>
-      </div>
-      <span class="line"></span>
-      <div *ngIf="hasCurrentMeasurement" class="status" [ngClass]="status"></div>
-      <div *ngIf="!hasCurrentMeasurement" class="status offline"></div>
-    </div>
-    <div *ngIf="hasCurrentMeasurement" class="measurement-container">
-      <span class="temperature" *ngIf="currentMeasurement?.temperature">
-        <i class="wi wi-thermometer"></i>{{currentMeasurement?.temperature?.toFixed(2)}} ºC
-      </span>
-      <span class="humidity" *ngIf="currentMeasurement?.humidity">
-        <i class="wi wi-humidity"></i>{{currentMeasurement?.humidity?.toFixed(2)}}
-      </span>
-      <span class="pressure" *ngIf="currentMeasurement?.airPressure">
-        <i class="wi wi-barometer"></i>{{currentMeasurement?.airPressure?.toFixed(2)}} Pa
-      </span>
-    </div>
-    <div *ngIf="!hasCurrentMeasurement" class="measurement-container">
-      <span class="no-data">Sin datos</span>
-    </div>
-    <div class="last-record">
-      <hr>
-      <span *ngIf="hasCurrentMeasurement">Última medición: {{formatedLastMeasurementLocalize}}</span>
-      <span *ngIf="!hasCurrentMeasurement">Sin datos</span>
-      <hr>
-    </div>
-  </div>
-</div>
-
+<arm-card-layout [type]="types">
+  <ng-container card-header>
+    <app-station-card-header
+      [station]="station"
+      [lastMeasurementDateTimeLocal]="lastMeasurementDateTimeLocal"
+      [statusClass]="status"
+      [type]="types"
+    ></app-station-card-header>
+  </ng-container>
+  <ng-container card-main>
+    <app-station-card-main
+      [ngClass]="{ 'grouped': isStationGroup }"
+      [hasCurrentMeasurement]="hasCurrentMeasurement"
+      [currentMeasurement]="currentMeasurement"
+    ></app-station-card-main>
+  </ng-container>
+  <ng-container card-footer>
+    <app-station-card-footer
+      [hasCurrentMeasurement]="hasCurrentMeasurement"
+      [lastMeasurementMessage]="lastMeasurementMessage"
+      [type]="types"
+    ></app-station-card-footer>
+  </ng-container>
+</arm-card-layout>

@@ -4,7 +4,13 @@
 
   <div class="card-grid">
     <arm-station-card
-      *ngFor="let station of stations"
+      *ngFor="let station of stationGroups;let i=index; trackBy: trackBy"
+      [station]="station"
+      [types]="stationGroupType"
+      [routerLink]=""
+    ></arm-station-card>
+    <arm-station-card
+      *ngFor="let station of stations; let i=index; trackBy: trackBy"
       [station]="station"
       [routerLink]="['station-details', station.id]"
     ></arm-station-card>

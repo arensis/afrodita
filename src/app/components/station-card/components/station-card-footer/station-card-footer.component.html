@@ -1,0 +1,18 @@
+<ng-container *ngIf="!isStationGroup">
+  <span *ngIf="hasCurrentMeasurement">{{lastMeasurementMessage}}</span>
+  <span *ngIf="!hasCurrentMeasurement">Sin datos</span>
+</ng-container>
+<ng-container *ngIf="isStationGroup">
+  <div class="station-group-buttons">
+    <button class="chart-button">
+      <fa-icon [icon]="chartIcon"></fa-icon>
+      <span>Mediciones</span>
+    </button>
+    <button class="station-button">
+      <fa-icon [icon]="stationIcon"></fa-icon>
+      <span>Staciones</span>
+    </button>
+  </div>
+</ng-container>
+
+

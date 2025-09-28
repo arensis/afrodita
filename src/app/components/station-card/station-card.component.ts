@@ -1,4 +1,7 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { StatoionGroupResponseDto } from 'src/app/model/station-group-response.dto';
+import { StationResponseDto } from 'src/app/model/station-response.dto';
+import { StationTypes } from 'src/app/model/station-type-enum';
 
 @Component({
   selector: 'arm-station-card',
@@ -7,13 +10,19 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/cor
 })
 export class StationCardComponent implements OnInit, OnChanges {
   @Input()
-  station: any;
+  station!: StationResponseDto | StatoionGroupResponseDto;
+  @Input()
+  types: StationTypes = StationTypes.STAND_ALONE;
 
+  lastMeasurementMessage!: string;
   currentMeasurement: any;
   lastMeasurementDateTimeLocal!: Date;
   formatedLastMeasurementLocalize!: string;
   status: string = 'warning';
   hasCurrentMeasurement!: boolean;
+
+  isStationGroup!: boolean;
+
 
   ngOnInit(): void {
     this.initStationData();
@@ -24,19 +33,18 @@ export class StationCardComponent implements OnInit, OnChanges {
   }
 
   private initStationData() {
+    this.isStationGroup = this.types === StationTypes.GROUPED;
     this.hasCurrentMeasurement = this.initHasCurrentMeasurement();
     if (this.hasCurrentMeasurement) {
-      console.log('currentMeasurement', this.currentMeasurement);
       this.hasCurrentMeasurement = true;
       this.currentMeasurement = this.station.currentMeasurement;
       this.lastMeasurementDateTimeLocal = this.buildUniversalDateTimeLocal();
       this.formatedLastMeasurementLocalize = this.buildFormatedLastMeasurementLocalize();
+      this.lastMeasurementMessage = this.buildLastMeasurementMessage();
       this.status = this.stationStatus();
+    } else {
+      this.status = 'offline';
     }
-  }
-
-  private getLastMeasurement(): any {
-    return this.station.measurements.at(-1);
   }
 
   private initHasCurrentMeasurement(): boolean {
@@ -57,6 +65,12 @@ export class StationCardComponent implements OnInit, OnChanges {
     }
 
     return 'online'
+  }
+
+  private buildLastMeasurementMessage(): string {
+    return this.hasCurrentMeasurement ?
+      'Última medición: ' + this.formatedLastMeasurementLocalize :
+      'Sin datos';
   }
 
   private buildFormatedLastMeasurementLocalize(): string {
