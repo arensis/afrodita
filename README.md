@@ -10,7 +10,7 @@ npm install
 
 ## Arranacar hefesto-kairos
 
-Seguir las instrucciones del [README del proyecto hefesto-kairos](https://github.com/arensis/hefesto-kairos#readme)
+Seguir las instrucciones del [README del proyecto hefesto-kairos](https://github.com/arensis/hefesto#readme)
 
 ## Arrancar proyecto
 
