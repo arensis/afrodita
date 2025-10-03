@@ -1,6 +1,6 @@
 # Afrodita
 
-Frontend del proyecto Kairos, funciona como interfaz de usuario para visualizar los datos de las estaciones meteorológicas registradas con el servicio [hefesto-kairos](https://github.com/arensis/hefesto-kairos)
+Frontend del proyecto Kairos, funciona como interfaz de usuario para visualizar los datos de las estaciones meteorológicas registradas con el servicio [hefesto](https://github.com/arensis/hefesto)
 
 ## Instalar dependencias
 
