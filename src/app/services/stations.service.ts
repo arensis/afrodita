@@ -26,8 +26,16 @@ export class StationsService {
 
   getMeasurements(id: string, measurementDate: Date): Observable<MeasurementDto[]> {
     const formatedDate = measurementDate.toISOString().slice(0, 10);
-    console.log(formatedDate);
-    const fullUrl = [this.api, 'stations', id, 'measurements'].join('/').concat(`?date=${formatedDate}`);
+
+    // Resolucion del downsampling segun dispositivo: menos puntos en movil
+    // (mas dificil pulsar un punto en pantalla pequena) que en desktop.
+    const isMobile = typeof window !== 'undefined'
+      && window.matchMedia('(max-width: 768px)').matches;
+    const bucketMinutes = isMobile ? 20 : 10;
+
+    const fullUrl = [this.api, 'stations', id, 'measurements']
+      .join('/')
+      .concat(`?date=${formatedDate}&bucketMinutes=${bucketMinutes}`);
     return this.http.get<MeasurementResponseDto[]>(fullUrl).pipe(map(measurements => measurements.map(measurement => {
       return {
         date: measurement.date.toLocaleString("es-ES", { day: "numeric", month: 'numeric', year:'numeric'}),
