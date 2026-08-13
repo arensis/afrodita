@@ -31,7 +31,7 @@ export class StationsService {
     // (mas dificil pulsar un punto en pantalla pequena) que en desktop.
     const isMobile = typeof window !== 'undefined'
       && window.matchMedia('(max-width: 768px)').matches;
-    const bucketMinutes = isMobile ? 20 : 10;
+    const bucketMinutes = isMobile ? 30 : 10;
 
     const fullUrl = [this.api, 'stations', id, 'measurements']
       .join('/')
