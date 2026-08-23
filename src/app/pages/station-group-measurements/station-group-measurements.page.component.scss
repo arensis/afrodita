@@ -11,7 +11,12 @@
     margin-bottom: 1rem;
 
     button {
-      padding: 0.4rem 1.2rem;
+      -webkit-appearance: none;
+      appearance: none;
+      font: inherit;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0.6rem 1.4rem;
       border: 1px solid rgb(10 151 146 / 58%);
       border-radius: 20px;
       background-color: transparent;
@@ -65,11 +70,5 @@
     .no-data {
       opacity: 0.7;
     }
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .aggregate-summary {
-    padding-bottom: 8rem;
   }
 }

@@ -18,8 +18,16 @@ main {
   }
 }
 
+@media screen and (max-width: 575px) {
+  main {
+    // Deja hueco para que el footer fijo (nube + logo) no tape/intercepte clicks al llegar al final
+    padding-bottom: 10rem;
+  }
+}
+
 @media screen and (min-width: 500px) and (max-width: 980px) and (orientation: landscape) {
   main {
     margin-top: 5rem;
+    padding-bottom: 6rem;
   }
 }
