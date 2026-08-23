@@ -3,10 +3,14 @@
   <p>Selecciona la estación para más detalles:</p>
 
   <div class="card-grid">
-    <arm-station-card
-      *ngFor="let station of stations; let i=index; trackBy: trackBy"
-      [station]="station"
-      [routerLink]="['/station-details', station.id]"
-    ></arm-station-card>
+    <div class="station-item" *ngFor="let station of stations; let i=index; trackBy: trackBy">
+      <span class="operational-badge" [class.down]="!station.operational">
+        {{ station.operational ? 'Operativa' : 'Caída' }}
+      </span>
+      <arm-station-card
+        [station]="station"
+        [routerLink]="['/station-details', station.id]"
+      ></arm-station-card>
+    </div>
   </div>
 </div>
