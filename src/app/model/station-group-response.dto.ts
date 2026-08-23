@@ -1,5 +1,5 @@
 import { BaseStationResponseDto } from "./base-station-response.dto";
 
-export interface StatoionGroupResponseDto extends BaseStationResponseDto{
+export interface StationGroupResponseDto extends BaseStationResponseDto{
   stations: string[];
 }

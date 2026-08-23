@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { StatoionGroupResponseDto } from 'src/app/model/station-group-response.dto';
+import { StationGroupResponseDto } from 'src/app/model/station-group-response.dto';
 import { StationResponseDto } from 'src/app/model/station-response.dto';
 import { StationTypes } from 'src/app/model/station-type-enum';
 
@@ -10,7 +10,7 @@ import { StationTypes } from 'src/app/model/station-type-enum';
 })
 export class StationCardComponent implements OnInit, OnChanges {
   @Input()
-  station!: StationResponseDto | StatoionGroupResponseDto;
+  station!: StationResponseDto | StationGroupResponseDto;
   @Input()
   types: StationTypes = StationTypes.STAND_ALONE;
 

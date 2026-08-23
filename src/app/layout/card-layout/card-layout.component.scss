@@ -17,12 +17,21 @@
 }
 
 .card {
+  --card-width: 320px;
+  --card-content-width: 300px;
+  --card-header-height: 40px;
+  --card-main-height: 80px;
+  --card-footer-height: 18px;
+  --card-border-color: rgb(50 113 151 / 30%);
+  --card-header-bg: rgb(16 89 143 / 84%);
+  --card-body-bg: rgb(19 117 184 / 58%);
+
   all: unset;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-radius: 8px 8px 8px 8px;
   height: 140px;
-  width: 320px;
+  width: var(--card-width);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -31,35 +40,32 @@
   color: white;
   padding-bottom: 1px;
   padding-top: 1px;
+
+  &.grouped {
+    --card-header-bg: rgb(11 112 111 / 84%);
+    --card-body-bg: rgb(10 151 146 / 58%);
+  }
 }
 
 header {
   border-radius: 8px 8px 0px 0px;
-  background-color: rgb(16 89 143 / 84%);
-  border: 1px solid rgba(50, 113, 151, 0.3);
+  background-color: var(--card-header-bg);
+  border: 1px solid var(--card-border-color);
   padding: 0px 8px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 40px;
-  width: 300px;
+  height: var(--card-header-height);
+  width: var(--card-content-width);
   align-items: center;
 }
 
-header.grouped {
-  background-color: rgb(11 112 111 / 84%);
-}
-
-main.grouped, footer.grouped {
-  background-color: rgb(10 151 146 / 58%)
-}
-
 main {
-  background-color: rgb(19 117 184 / 58%);
-  border: 1px solid rgb(50 113 151 / 30%);
+  background-color: var(--card-body-bg);
+  border: 1px solid var(--card-border-color);
   padding: 0px 8px;
-  width: 300px;
-  height: 80px;
+  width: var(--card-content-width);
+  height: var(--card-main-height);
   font-size: 1.5rem;
   display: flex;
   justify-content: space-between;
@@ -69,14 +75,14 @@ main {
 
 footer {
   border-radius: 0px 0px 8px 8px;
-  background-color: rgba(19, 117, 184, 0.58);
-  border: 1px solid rgba(50, 113, 151, 0.3);
+  background-color: var(--card-body-bg);
+  border: 1px solid var(--card-border-color);
   border-top: none;
-  width: 300px;
+  width: var(--card-content-width);
   text-align: center;
   font-size: 0.7rem;
   padding: 2px 8px;
-  height: 18px;
+  height: var(--card-footer-height);
 }
 
 @media screen and (max-width: 376px) {

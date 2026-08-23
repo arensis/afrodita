@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { StatoionGroupResponseDto } from 'src/app/model/station-group-response.dto';
+import { StationGroupResponseDto } from 'src/app/model/station-group-response.dto';
 import { StationResponseDto } from 'src/app/model/station-response.dto';
 import { StationTypes } from 'src/app/model/station-type-enum';
 import { faHouseSignal, IconDefinition } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +12,7 @@ import { faSatelliteDish } from '@fortawesome/free-solid-svg-icons';
 })
 export class StationCardHeaderComponent implements OnInit {
   @Input()
-  station!: StationResponseDto | StatoionGroupResponseDto;
+  station!: StationResponseDto | StationGroupResponseDto;
   @Input()
   lastMeasurementDateTimeLocal!: Date;
   @Input()
