@@ -17,40 +17,8 @@
   [tooltip]="chartOptions.tooltip"
 ></apx-chart>
 
-<div class="aggregate-summary">
-  <div class="period-selector">
-    <button [class.active]="period === 'day'" (click)="selectPeriod('day')">Día</button>
-    <button [class.active]="period === 'month'" (click)="selectPeriod('month')">Mes</button>
-    <button [class.active]="period === 'year'" (click)="selectPeriod('year')">Año</button>
-  </div>
-
-  <div class="metrics" *ngIf="!!aggregate">
-    <div class="metric" *ngIf="aggregate.temperature as temperature">
-      <span class="label"><i class="wi wi-thermometer"></i>Temperatura</span>
-      <span class="avg">{{temperature.avg.toFixed(2)}} ºC</span>
-      <span class="range" *ngIf="!!temperature.min && !!temperature.max">
-        mín {{temperature.min.value.toFixed(2)}} ºC <small>({{temperature.min.date | date:'d/M HH:mm'}})</small>
-        · máx {{temperature.max.value.toFixed(2)}} ºC <small>({{temperature.max.date | date:'d/M HH:mm'}})</small>
-      </span>
-    </div>
-    <div class="metric" *ngIf="aggregate.humidity as humidity">
-      <span class="label"><i class="wi wi-humidity"></i>Humedad</span>
-      <span class="avg">{{humidity.avg.toFixed(2)}}</span>
-      <span class="range" *ngIf="!!humidity.min && !!humidity.max">
-        mín {{humidity.min.value.toFixed(2)}} <small>({{humidity.min.date | date:'d/M HH:mm'}})</small>
-        · máx {{humidity.max.value.toFixed(2)}} <small>({{humidity.max.date | date:'d/M HH:mm'}})</small>
-      </span>
-    </div>
-    <div class="metric" *ngIf="aggregate.airPressure as airPressure">
-      <span class="label"><i class="wi wi-barometer"></i>Presión</span>
-      <span class="avg">{{airPressure.avg.toFixed(2)}} Pa</span>
-      <span class="range" *ngIf="!!airPressure.min && !!airPressure.max">
-        mín {{airPressure.min.value.toFixed(2)}} Pa <small>({{airPressure.min.date | date:'d/M HH:mm'}})</small>
-        · máx {{airPressure.max.value.toFixed(2)}} Pa <small>({{airPressure.max.date | date:'d/M HH:mm'}})</small>
-      </span>
-    </div>
-    <p class="no-data" *ngIf="!aggregate.temperature && !aggregate.humidity && !aggregate.airPressure">
-      Sin datos para este periodo
-    </p>
-  </div>
-</div>
+<arm-aggregate-summary
+  [aggregate]="aggregate"
+  [period]="period"
+  (onPeriodChange)="selectPeriod($event)"
+></arm-aggregate-summary>

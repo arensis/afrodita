@@ -15,3 +15,9 @@
   [markers]="chartOptions.markers"
   [tooltip]="chartOptions.tooltip"
 ></apx-chart>
+
+<arm-aggregate-summary
+  [aggregate]="aggregate"
+  [period]="period"
+  (onPeriodChange)="selectPeriod($event)"
+></arm-aggregate-summary>

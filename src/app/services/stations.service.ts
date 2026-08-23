@@ -5,6 +5,7 @@ import { catchError, map, retry } from 'rxjs/operators';
 import { StationResponseDto } from '../model/station-response.dto';
 import { MeasurementResponseDto } from '../model/station-measurement-response.dto';
 import { MeasurementDto } from '../model/measurement.dto';
+import { AggregatePeriod, AggregateResponseDto } from '../model/aggregate-response.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,14 @@ export class StationsService {
     })));
   }
 
+
+  getAggregates(id: string, period: AggregatePeriod, date: Date): Observable<AggregateResponseDto> {
+    const formatedDate = date.toISOString().slice(0, 10);
+    const fullUrl = [this.api, 'stations', id, 'aggregates']
+      .join('/')
+      .concat(`?period=${period}&date=${formatedDate}`);
+    return this.http.get<AggregateResponseDto>(fullUrl);
+  }
 
   private buildUniversalDateTimeLocal(date: string): Date {
     return new Date(date.slice(0, 19).split(' ').join('T').concat('Z'));

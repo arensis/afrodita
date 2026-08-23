@@ -8,6 +8,7 @@ import { ChartOptions, StationChartService } from "src/app/services/station-char
 import { StationResponseDto } from "src/app/model/station-response.dto";
 import { MeasurementResponseDto } from "src/app/model/station-measurement-response.dto";
 import { MeasurementDto } from "src/app/model/measurement.dto";
+import { AggregatePeriod, AggregateResponseDto } from "src/app/model/aggregate-response.dto";
 
 @Component({
   selector: 'arm-station-details',
@@ -27,6 +28,9 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
   currentMeasurements!: MeasurementDto[];
   currentDate!: Date;
 
+  period: AggregatePeriod = 'day';
+  aggregate!: AggregateResponseDto;
+
   constructor(
     private stationsService: StationsService,
     private stationChartService: StationChartService,
@@ -37,13 +41,18 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
       switchMap(params => {
         this.stationId = params.get('stationId') || '';
         this.currentDate = new Date();
-        return forkJoin([this.stationsService.getStation(this.stationId), this.stationsService.getMeasurements(this.stationId, this.currentDate)]);
+        return forkJoin({
+          station: this.stationsService.getStation(this.stationId),
+          measurements: this.stationsService.getMeasurements(this.stationId, this.currentDate),
+          aggregate: this.stationsService.getAggregates(this.stationId, this.period, this.currentDate)
+        });
       })
-    ).subscribe(([station, measurements]) => {
+    ).subscribe(({ station, measurements, aggregate }) => {
       this.station = station;
       this.currentMeasurements = measurements;
       this.lastMeasurement = this.station.currentMeasurement;
       this.chartOptions = this.stationChartService.buildDataChart(this.currentMeasurements);
+      this.aggregate = aggregate;
     });
   }
 
@@ -62,10 +71,8 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
     date.setDate(this.currentDate.getDate() + 1);
     this.currentDate = date;
 
-    this.stationsService.getMeasurements(this.stationId, this.currentDate).subscribe(measurements => {
-      this.currentMeasurements = measurements;
-      this.chartOptions = this.stationChartService.buildDataChart(this.currentMeasurements);
-    });
+    this.refreshMeasurements();
+    this.refreshAggregate();
   }
 
   backwardDate(): void {
@@ -73,9 +80,25 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
     date.setDate(this.currentDate.getDate() - 1);
     this.currentDate = date;
 
+    this.refreshMeasurements();
+    this.refreshAggregate();
+  }
+
+  selectPeriod(period: AggregatePeriod): void {
+    this.period = period;
+    this.refreshAggregate();
+  }
+
+  private refreshMeasurements(): void {
     this.stationsService.getMeasurements(this.stationId, this.currentDate).subscribe(measurements => {
       this.currentMeasurements = measurements;
       this.chartOptions = this.stationChartService.buildDataChart(this.currentMeasurements);
+    });
+  }
+
+  private refreshAggregate(): void {
+    this.stationsService.getAggregates(this.stationId, this.period, this.currentDate).subscribe(aggregate => {
+      this.aggregate = aggregate;
     });
   }
 }

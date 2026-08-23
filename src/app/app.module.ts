@@ -32,6 +32,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     Components.StationCardHeaderComponent,
     Components.StationCardMainComponent,
     Components.StationCardFooterComponent,
+    Components.AggregateSummaryComponent,
 
     Pages.HomePageComponent,
     Pages.StationDetailsPageComponent,
