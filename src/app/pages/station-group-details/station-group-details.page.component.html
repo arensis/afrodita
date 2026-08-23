@@ -1,14 +1,8 @@
 <div class="content">
-  <h2>Estaciones</h2>
+  <h2 *ngIf="!!stationGroup?.location">{{stationGroup.location.city}}</h2>
   <p>Selecciona la estación para más detalles:</p>
 
   <div class="card-grid">
-    <arm-station-card
-      *ngFor="let station of stationGroups;let i=index; trackBy: trackBy"
-      [station]="station"
-      [types]="stationGroupType"
-      [routerLink]="['/station-group-details', station.id]"
-    ></arm-station-card>
     <arm-station-card
       *ngFor="let station of stations; let i=index; trackBy: trackBy"
       [station]="station"

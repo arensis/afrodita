@@ -1,0 +1,37 @@
+:host {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+}
+
+:host.grouped {
+  margin-bottom: 1rem;
+}
+
+.no-data {
+  white-space: nowrap;
+  margin: auto;
+}
+
+.temperature > i, .humidity > i, .pressure > i {
+  font-size: 1.8rem;
+  margin-right: 4px;
+}
+
+.temperature, .humidity, .pressure {
+  display: flex;
+  align-items: center;
+}
+
+.temperature, .pressure {
+  padding: 12px;
+  white-space: nowrap;
+  i {
+    margin-top: 6px;
+  }
+}
+
+.humidity {
+  padding: 12px;
+  white-space: nowrap;
+}

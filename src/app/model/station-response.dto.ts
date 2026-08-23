@@ -1,8 +1,5 @@
-import { LocationResponseDto } from './location-response.dto';
-import { MeasurementResponseDto } from './station-measurement-response.dto';
+import { BaseStationResponseDto } from "./base-station-response.dto";
 
-export interface StationResponseDto {
-  createdDate: Date;
-  location: LocationResponseDto;
-  currentMeasurement: MeasurementResponseDto;
+export interface StationResponseDto extends BaseStationResponseDto {
+  stationGroupId: string;
 }

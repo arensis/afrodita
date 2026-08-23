@@ -10,7 +10,7 @@ import { MeasurementDto } from '../model/measurement.dto';
   providedIn: 'root'
 })
 export class StationsService {
-  api = 'http://localhost:3000';
+  api = 'https://kairos-weather.ddns.net';
 
   constructor(private http: HttpClient) { }
 
@@ -24,10 +24,23 @@ export class StationsService {
     return this.http.get<StationResponseDto>(fullUrl);
   }
 
+  getByGroupId(stationGroupId: string): Observable<StationResponseDto[]> {
+    const fullUrl = [this.api, 'stations', 'station-group', stationGroupId].join('/');
+    return this.http.get<StationResponseDto[]>(fullUrl);
+  }
+
   getMeasurements(id: string, measurementDate: Date): Observable<MeasurementDto[]> {
     const formatedDate = measurementDate.toISOString().slice(0, 10);
-    console.log(formatedDate);
-    const fullUrl = [this.api, 'stations', id, 'measurements'].join('/').concat(`?date=${formatedDate}`);
+
+    // Resolucion del downsampling segun dispositivo: menos puntos en movil
+    // (mas dificil pulsar un punto en pantalla pequena) que en desktop.
+    const isMobile = typeof window !== 'undefined'
+      && window.matchMedia('(max-width: 768px)').matches;
+    const bucketMinutes = isMobile ? 30 : 10;
+
+    const fullUrl = [this.api, 'stations', id, 'measurements']
+      .join('/')
+      .concat(`?date=${formatedDate}&bucketMinutes=${bucketMinutes}`);
     return this.http.get<MeasurementResponseDto[]>(fullUrl).pipe(map(measurements => measurements.map(measurement => {
       return {
         date: measurement.date.toLocaleString("es-ES", { day: "numeric", month: 'numeric', year:'numeric'}),

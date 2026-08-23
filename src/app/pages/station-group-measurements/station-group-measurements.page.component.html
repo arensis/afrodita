@@ -1,0 +1,52 @@
+<arm-station-details-header
+  [station]="stationGroup"
+  [currentDate]="currentDate"
+  [lastestMeasurement]="stationGroup?.currentMeasurement"
+  (onBackwardDate)="backwardDate()"
+  (onForwardDate)="forwardDate()"
+></arm-station-details-header>
+<apx-chart
+  *ngIf="!!chartOptions && !!chartOptions.series"
+  [series]="chartOptions.series"
+  [chart]="chartOptions.chart"
+  [xaxis]="chartOptions.xaxis"
+  [stroke]="chartOptions.stroke"
+  [yaxis]="chartOptions.yaxis"
+  [markers]="chartOptions.markers"
+  [tooltip]="chartOptions.tooltip"
+></apx-chart>
+
+<div class="aggregate-summary">
+  <div class="period-selector">
+    <button [class.active]="period === 'day'" (click)="selectPeriod('day')">Día</button>
+    <button [class.active]="period === 'month'" (click)="selectPeriod('month')">Mes</button>
+    <button [class.active]="period === 'year'" (click)="selectPeriod('year')">Año</button>
+  </div>
+
+  <div class="metrics" *ngIf="!!aggregate">
+    <div class="metric" *ngIf="aggregate.temperature as temperature">
+      <span class="label"><i class="wi wi-thermometer"></i>Temperatura</span>
+      <span class="avg">{{temperature.avg.toFixed(2)}} ºC</span>
+      <span class="range" *ngIf="!!temperature.min && !!temperature.max">
+        {{temperature.min.value.toFixed(2)}} ºC / {{temperature.max.value.toFixed(2)}} ºC
+      </span>
+    </div>
+    <div class="metric" *ngIf="aggregate.humidity as humidity">
+      <span class="label"><i class="wi wi-humidity"></i>Humedad</span>
+      <span class="avg">{{humidity.avg.toFixed(2)}}</span>
+      <span class="range" *ngIf="!!humidity.min && !!humidity.max">
+        {{humidity.min.value.toFixed(2)}} / {{humidity.max.value.toFixed(2)}}
+      </span>
+    </div>
+    <div class="metric" *ngIf="aggregate.airPressure as airPressure">
+      <span class="label"><i class="wi wi-barometer"></i>Presión</span>
+      <span class="avg">{{airPressure.avg.toFixed(2)}} Pa</span>
+      <span class="range" *ngIf="!!airPressure.min && !!airPressure.max">
+        {{airPressure.min.value.toFixed(2)}} Pa / {{airPressure.max.value.toFixed(2)}} Pa
+      </span>
+    </div>
+    <p class="no-data" *ngIf="!aggregate.temperature && !aggregate.humidity && !aggregate.airPressure">
+      Sin datos para este periodo
+    </p>
+  </div>
+</div>

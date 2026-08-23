@@ -98,11 +98,13 @@ export class StationChartService {
     });
   }
 
-  private getMaxCurrentDayTemperature(measurements: any[]): number {
+  private getMaxCurrentDayTemperature(measurements: any[]): number | undefined {
+    if (measurements.length === 0) return undefined;
     return Math.max(...measurements.map((measurement: any) => measurement.temperature))
   }
 
-  private getMinCurrentDayTemperature(measurements: any[]): number {
+  private getMinCurrentDayTemperature(measurements: any[]): number | undefined {
+    if (measurements.length === 0) return undefined;
     return Math.min(...measurements.map((measurement: any) => measurement.temperature));
   }
 
