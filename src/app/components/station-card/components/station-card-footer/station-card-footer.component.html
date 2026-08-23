@@ -4,13 +4,21 @@
 </ng-container>
 <ng-container *ngIf="isStationGroup">
   <div class="station-group-buttons">
-    <button class="chart-button">
+    <button
+      class="chart-button"
+      [routerLink]="['/station-group-measurements', station.id]"
+      (click)="$event.stopPropagation()"
+    >
       <fa-icon [icon]="chartIcon"></fa-icon>
       <span>Mediciones</span>
     </button>
-    <button class="station-button">
+    <button
+      class="station-button"
+      [routerLink]="['/station-group-details', station.id]"
+      (click)="$event.stopPropagation()"
+    >
       <fa-icon [icon]="stationIcon"></fa-icon>
-      <span>Staciones</span>
+      <span>Estaciones</span>
     </button>
   </div>
 </ng-container>

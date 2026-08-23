@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription, forkJoin } from "rxjs";
+import { switchMap } from "rxjs/operators";
 import { StationsService } from "src/app/services/stations.service";
 import { ChartComponent } from "ng-apexcharts";
 import { ChartOptions, StationChartService } from "src/app/services/station-chart.service";
@@ -32,15 +33,17 @@ export class StationDetailsPageComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.routeSubscription = this.route.paramMap.subscribe(params => {
-      this.stationId = params.get('stationId') || '';
-      this.currentDate = new Date();
-      forkJoin([this.stationsService.getStation(this.stationId), this.stationsService.getMeasurements(this.stationId, this.currentDate)]).subscribe(observer => {
-        this.station = observer[0];
-        this.currentMeasurements = observer[1];
-        this.lastMeasurement = this.station.currentMeasurement;
-        this.chartOptions = this.stationChartService.buildDataChart(this.currentMeasurements);
-      });
+    this.routeSubscription = this.route.paramMap.pipe(
+      switchMap(params => {
+        this.stationId = params.get('stationId') || '';
+        this.currentDate = new Date();
+        return forkJoin([this.stationsService.getStation(this.stationId), this.stationsService.getMeasurements(this.stationId, this.currentDate)]);
+      })
+    ).subscribe(([station, measurements]) => {
+      this.station = station;
+      this.currentMeasurements = measurements;
+      this.lastMeasurement = this.station.currentMeasurement;
+      this.chartOptions = this.stationChartService.buildDataChart(this.currentMeasurements);
     });
   }
 

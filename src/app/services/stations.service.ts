@@ -24,6 +24,11 @@ export class StationsService {
     return this.http.get<StationResponseDto>(fullUrl);
   }
 
+  getByGroupId(stationGroupId: string): Observable<StationResponseDto[]> {
+    const fullUrl = [this.api, 'stations', 'station-group', stationGroupId].join('/');
+    return this.http.get<StationResponseDto[]>(fullUrl);
+  }
+
   getMeasurements(id: string, measurementDate: Date): Observable<MeasurementDto[]> {
     const formatedDate = measurementDate.toISOString().slice(0, 10);
 

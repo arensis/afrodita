@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { forkJoin } from 'rxjs';
-import { StatoionGroupResponseDto } from 'src/app/model/station-group-response.dto';
+import { StationGroupResponseDto } from 'src/app/model/station-group-response.dto';
 import { StationResponseDto } from 'src/app/model/station-response.dto';
 import { StationTypes } from 'src/app/model/station-type-enum';
 import { StationGroupService } from 'src/app/services/station-group.service';
@@ -14,7 +14,7 @@ import { StationsService } from 'src/app/services/stations.service';
 export class HomePageComponent implements OnInit {
 
   stations: StationResponseDto[] = [];
-  stationGroups: StatoionGroupResponseDto[] = [];
+  stationGroups: StationGroupResponseDto[] = [];
   stationSubscription: any;
   stationGroupType = StationTypes.GROUPED;
 

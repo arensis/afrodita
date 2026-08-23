@@ -35,6 +35,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
     Pages.HomePageComponent,
     Pages.StationDetailsPageComponent,
+    Pages.StationGroupDetailsPageComponent,
+    Pages.StationGroupMeasurementsPageComponent,
 
     Layout.FooterComponent,
     Layout.HeaderComponent,
